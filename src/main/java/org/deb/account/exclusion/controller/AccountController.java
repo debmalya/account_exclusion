@@ -11,8 +11,6 @@ import org.deb.account.exclusion.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,12 +34,12 @@ public class AccountController {
     }
 
 
-    @RequestMapping(value = "/retrieveAll", method = RequestMethod.GET)
+    @GetMapping(value = "/retrieveAll")
     public ResponseEntity<List<ExclusionAccounts>> getAllExcludedAccounts() {
         return new ResponseEntity<>(accountRepository.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/exclude", method = RequestMethod.POST)
+    @PostMapping(value = "/exclude")
     public ResponseEntity<?> excludeAccounts(@RequestBody List<ExclusionAccounts> accountList) {
         String[] submitter = new RequestUtil().getCurrentUserName();
         if (!submitter[1].equals("User")){
