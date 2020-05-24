@@ -1,6 +1,7 @@
 package org.deb.account.exclusion.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.extern.slf4j.Slf4j;
 import org.deb.account.exclusion.component.AppUserDetailsService;
 import org.deb.account.exclusion.component.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private AppUserDetailsService jwtUserDetailsService;
@@ -62,9 +64,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             username = jwtTokenUtil.getUsernameFromToken(jwtToken);
         } catch (IllegalArgumentException e) {
-            System.out.println("Unable to get JWT Token");
+            log.error("Unable to get JWT Token");
         } catch (ExpiredJwtException e) {
-            System.out.println("JWT Token has expired");
+            log.error("JWT Token has expired");
         }
         return username;
     }

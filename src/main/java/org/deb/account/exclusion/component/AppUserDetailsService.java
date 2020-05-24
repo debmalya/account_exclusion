@@ -18,7 +18,6 @@ public class AppUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s)  {
         String userName = s;
         String password = "";
-        String role = "";
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         if ("Tom".equals(s)){
@@ -31,7 +30,6 @@ public class AppUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", s));
         }
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(userName, password, false,false,false,false,authorities);
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(userName, password, false,false,false,false,authorities);
     }
 }
