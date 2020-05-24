@@ -37,7 +37,7 @@ public class AuthenticationController {
     @RequestMapping(value="/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserAuthenticationRequest userAuthenticationRequest) {
         ResponseEntity<?> responseEntity = null;
-        if (StringUtils.isEmpty(userAuthenticationRequest.getUserName()) || StringUtils.isEmpty(userAuthenticationRequest.getUserName())){
+        if (StringUtils.isEmpty(userAuthenticationRequest.getUserName()) || StringUtils.isEmpty(userAuthenticationRequest.getPassword())){
             responseEntity = new ResponseEntity<>("Please provide username and password", HttpStatus.BAD_REQUEST);
         } else {
             try {

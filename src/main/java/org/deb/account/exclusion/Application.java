@@ -20,7 +20,7 @@ public class Application {
 
     @Bean
     public CommandLineRunner acccountSetup(AccountRepository accountRepository) {
-        return (args) -> {
+        return args -> {
             accountRepository.save(new ExclusionAccounts("2000123458"));
             accountRepository.save(new ExclusionAccounts("5000123460"));
             accountRepository.save(new ExclusionAccounts("6000123462"));
