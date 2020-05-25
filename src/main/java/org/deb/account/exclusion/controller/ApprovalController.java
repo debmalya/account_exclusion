@@ -23,7 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/approval" + Constatnts.VERSION_ZERO)
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class ApprovalController {
     private final UserRequestRepository userRequestRepository;
 

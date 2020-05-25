@@ -17,47 +17,49 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
 
-    private final AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
-    private final JwtTokenUtil jwtTokenUtil;
+  private final JwtTokenUtil jwtTokenUtil;
 
-    private final AppUserDetailsService appUserDetailsService;
+  private final AppUserDetailsService appUserDetailsService;
 
-    @Autowired
-    public AuthenticationController(AppUserDetailsService appUserDetailsService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
-        this.appUserDetailsService = appUserDetailsService;
-        this.authenticationManager = authenticationManager;
+  @Autowired
+  public AuthenticationController(AppUserDetailsService appUserDetailsService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
+    this.appUserDetailsService = appUserDetailsService;
+    this.authenticationManager = authenticationManager;
 
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
+    this.jwtTokenUtil = jwtTokenUtil;
+  }
 
 
-    @PostMapping(value="/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserAuthenticationRequest userAuthenticationRequest) {
-        ResponseEntity<?> responseEntity = null;
-        if (StringUtils.isEmpty(userAuthenticationRequest.getUserName()) || StringUtils.isEmpty(userAuthenticationRequest.getPassword())){
-            responseEntity = new ResponseEntity<>("Please provide username and password", HttpStatus.BAD_REQUEST);
+  @PostMapping(value = "/authenticate")
+  public ResponseEntity<?> createAuthenticationToken(@RequestBody UserAuthenticationRequest userAuthenticationRequest) {
+    ResponseEntity<?> responseEntity = null;
+    if (StringUtils.isEmpty(userAuthenticationRequest.getUserName()) || StringUtils.isEmpty(userAuthenticationRequest.getPassword())) {
+      ErrorResponse errorResponse = new ErrorResponse("Please provide username and password");
+      responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    } else {
+      try {
+        UserDetails userDetails = appUserDetailsService.loadUserByUsername(userAuthenticationRequest.getUserName());
+        if (userDetails.getPassword().equals(userAuthenticationRequest.getPassword())) {
+          final String token = jwtTokenUtil.generateToken(userDetails);
+          responseEntity = ResponseEntity.ok(new JwtResponse(token));
         } else {
-            try {
-                UserDetails userDetails = appUserDetailsService.loadUserByUsername(userAuthenticationRequest.getUserName());
-                if (userDetails.getPassword().equals(userAuthenticationRequest.getPassword())) {
-                    final String token = jwtTokenUtil.generateToken(userDetails);
-                    responseEntity =  ResponseEntity.ok(new JwtResponse(token));
-                } else {
-                    ErrorResponse errorResponse = new ErrorResponse("Either username or password is not valid");
-                    responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.OK);
-                }
-            } catch (UsernameNotFoundException unfe) {
-                log.error(String.format("User name '%s' not found", userAuthenticationRequest.getUserName()));
-                responseEntity = new ResponseEntity<>("User not found", HttpStatus.OK);
-            }
-
+          ErrorResponse errorResponse = new ErrorResponse("Either username or password is not valid");
+          responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.OK);
         }
-        return responseEntity;
+      } catch (UsernameNotFoundException unfe) {
+        log.error(String.format("User name '%s' not found", userAuthenticationRequest.getUserName()));
+        ErrorResponse errorResponse = new ErrorResponse("Either username or password is not valid");
+        responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.OK);
+      }
+
     }
+    return responseEntity;
+  }
 
 }
