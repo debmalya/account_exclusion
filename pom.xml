@@ -1,177 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.0.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>org.deb</groupId>
-  <artifactId>accounts</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>accounts</name>
-  <description>Account exclusion for Spring Boot with angular js</description>
-
-
-  <properties>
-    <java.version>1.8</java.version>
-    <flyway.user>databaseUser</flyway.user>
-    <flyway.password>databasePassword</flyway.password>
-    <flyway.schemas>schemaName</flyway.schemas>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-rest</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-quartz</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    <!-- For JWT -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt</artifactId>
-      <version>0.9.1</version>
-    </dependency>
-    <!-- End for JWT -->
-
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!-- For role based authorization -->
-    <dependency>
-      <groupId>org.casbin</groupId>
-      <artifactId>jcasbin</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security.oauth</groupId>
-      <artifactId>spring-security-oauth2</artifactId>
-      <version>2.1.0.RELEASE</version>
-    </dependency>
-
-
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.flywaydb</groupId>
-        <artifactId>flyway-maven-plugin</artifactId>
-        <version>6.4.2</version>
-        <configuration>
-          <user>myUser</user>
-          <password>myPassword</password>
-          <schemas>
-            <schema>accounts</schema>
-          </schemas>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonarsource.scanner.maven</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.3.0.603</version>
-      </plugin>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>org.deb</groupId>
+    <artifactId>accounts.exclusion</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>accounts.exclusion</name>
+    <description>Account exclusion for Spring Boot with angular js</description>
 
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.2</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <!-- attached to Maven test phase -->
-          <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>target/jacoco-report</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.6</version>
-        <configuration>
-          <nodeVersion>v12.16.3</nodeVersion>
-        </configuration>
-        <executions>
-          <execution>
-            <id>install-npm</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>
-          ${basedir}/src/test/resources
-        </directory>
-      </testResource>
-    </testResources>
-  </build>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <flyway.user>databaseUser</flyway.user>
+        <flyway.password>databasePassword</flyway.password>
+        <flyway.schemas>schemaName</flyway.schemas>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- For JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <!-- End for JWT -->
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- For role based authorization -->
+        <dependency>
+            <groupId>org.casbin</groupId>
+            <artifactId>jcasbin</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.4.2</version>
+                <configuration>
+                    <user>myUser</user>
+                    <password>myPassword</password>
+                    <schemas>
+                        <schema>accounts</schema>
+                    </schemas>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.3.0.603</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- attached to Maven test phase -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/jacoco-report</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <nodeVersion>v12.16.3</nodeVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>npm-install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>npm-build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run-script build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>
+                    ${basedir}/src/test/resources
+                </directory>
+            </testResource>
+        </testResources>
+    </build>
 
 
 </project>
