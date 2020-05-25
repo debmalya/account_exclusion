@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/account" + Constatnts.VERSION_ZERO)
+@RequestMapping("/api/account" + Constatnts.VERSION_ZERO)
 @Slf4j
 @CrossOrigin
 public class AccountController {

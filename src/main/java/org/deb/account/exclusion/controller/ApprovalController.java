@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/approval" + Constatnts.VERSION_ZERO)
+@RequestMapping("/api/approval" + Constatnts.VERSION_ZERO)
 @Slf4j
 @CrossOrigin
 public class ApprovalController {
