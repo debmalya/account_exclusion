@@ -35,7 +35,8 @@ public class ApprovalController {
         this.accountRepository = accountRepository;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.POST)
+
+    @PostMapping(value="/all")
     public ResponseEntity<?> excludeAccounts(@RequestBody List<ApproveRejectRequest> requestList) {
         String[] approver = new RequestUtil().getCurrentUserName();
         if (!approver[1].equals("Admin")){
@@ -60,10 +61,6 @@ public class ApprovalController {
                         // need to remove from the file also
                         submittedRequest.setRequestStatus(RequestStatus.REJECTED);
                         status = String.format("Request with id '%s' got rejected.", eachApproveRejectRequest.getRequestID());
-                    }else if (eachApproveRejectRequest.getAction()=='C'){
-                        // need to remove from the file also
-                        status = String.format("Request with id '%s' got cancelled.", eachApproveRejectRequest.getRequestID());
-                        submittedRequest.setRequestStatus(RequestStatus.CANCELLED);
                     }
                     userRequestRepository.save(submittedRequest);
                 }catch(Exception exc){
@@ -78,7 +75,7 @@ public class ApprovalController {
         return new ResponseEntity<>(statusMessages, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/get/all", method = RequestMethod.GET)
+    @GetMapping(value="/get/all")
     public ResponseEntity<?> getAll() {
         return new ResponseEntity<>(userRequestRepository.findAll(), HttpStatus.OK);
     }

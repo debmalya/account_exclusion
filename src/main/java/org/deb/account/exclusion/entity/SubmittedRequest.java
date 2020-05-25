@@ -1,6 +1,7 @@
 package org.deb.account.exclusion.entity;
 
 import lombok.Data;
+import org.deb.account.exclusion.enums.ActionOnAccount;
 import org.deb.account.exclusion.enums.RequestStatus;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class SubmittedRequest {
     private String approvedBy;
     private Date approvalDate;
     private RequestStatus requestStatus;
+    private ActionOnAccount actionOnAccount;
     @Column(unique=true)
     private String accountNumber;
 }
