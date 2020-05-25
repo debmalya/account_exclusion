@@ -2,6 +2,7 @@ package org.deb.account.exclusion.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.deb.account.exclusion.component.JwtTokenUtil;
+import org.deb.account.exclusion.model.ErrorResponse;
 import org.deb.account.exclusion.model.JwtResponse;
 import org.deb.account.exclusion.model.UserAuthenticationRequest;
 import org.deb.account.exclusion.component.AppUserDetailsService;
@@ -34,9 +35,10 @@ public class AuthenticationController {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    @RequestMapping(value="/authenticate", method = RequestMethod.POST)
+    @PostMapping(value="/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserAuthenticationRequest userAuthenticationRequest) {
         ResponseEntity<?> responseEntity = null;
+
         if (StringUtils.isEmpty(userAuthenticationRequest.getUserName()) || StringUtils.isEmpty(userAuthenticationRequest.getPassword())){
             responseEntity = new ResponseEntity<>("Please provide username and password", HttpStatus.BAD_REQUEST);
         } else {
@@ -46,7 +48,9 @@ public class AuthenticationController {
                     final String token = jwtTokenUtil.generateToken(userDetails);
                     responseEntity =  ResponseEntity.ok(new JwtResponse(token));
                 } else {
-                    responseEntity = new ResponseEntity<>("Either username or password is not valid", HttpStatus.OK);
+                    ErrorResponse errorResponse = new ErrorResponse();
+                    errorResponse.setErrorMessage("Either username or password is not valid");
+                    responseEntity = new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
                 }
             } catch (UsernameNotFoundException unfe) {
                 log.error(String.format("User name '%s' not found", userAuthenticationRequest.getUserName()));
