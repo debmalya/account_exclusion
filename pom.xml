@@ -162,6 +162,12 @@
               <goal>install-node-and-npm</goal>
             </goals>
           </execution>
+          <execution>
+            <id>npm-install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
 
