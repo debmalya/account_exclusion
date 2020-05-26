@@ -1,0 +1,26 @@
+{
+  "name": "account_exclusion",
+  "version": "0.0.3",
+  "description": "account exclusion",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debmalya/account_exclusion.git"
+  },
+  "keywords": [
+    "Account",
+    "exclusion"
+  ],
+  "author": "debmalya jash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/debmalya/account_exclusion/issues"
+  },
+  "homepage": "https://github.com/debmalya/account_exclusion#readme",
+  "dependencies": {
+    "@angular/cli": "^9.1.7"
+  }
+}
