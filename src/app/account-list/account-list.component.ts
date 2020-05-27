@@ -8,7 +8,7 @@ import { BackendService } from '../backend.service';
   styleUrls: ['./account-list.component.css']
 })
 export class AccountListComponent implements OnInit {
-  private accounts:Account[]
+  public accounts:Account[]
   constructor(private service:BackendService) { 
     this.service.getExcludedAccounts().subscribe(
       data => {
