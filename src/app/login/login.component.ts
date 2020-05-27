@@ -9,34 +9,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  credentials = {userName: '', password: ''};
-  constructor(private loginService : BackendService,private router: Router) { }
-   error = "";
-   appError = "";
-   accounts$;
-   userName="";
-   
+  credentials = { userName: '', password: '' };
+  constructor(private loginService: BackendService, private router: Router) { }
+  error = "";
+  appError = "";
+  accounts$;
+  userName = "";
+
 
   ngOnInit(): void {
   }
 
   login() {
-    this.loginService.authenticate(this.credentials,()=>{
-      if (this.loginService.authenticated){
-      
-        this.error="";
-        this.appError="";
-        
+    this.loginService.authenticate(this.credentials, () => {
+      if (this.loginService.authenticated) {
+
+        this.error = "";
+        this.appError = "";
+
+        /*
         this.loginService.getExcludedAccounts().subscribe(
           data => {
             this.accounts$ = data;
             console.log("Accounts =" + JSON.stringify(this.accounts$));
             // this.router.navigateByUrl(`account`);
-            this.router.navigate(["account"]);
           }
-        )  
-      }else{
-        console.log("Not able to login "+this.loginService.errorMessage);
+        ) 
+        */
+        if (this.loginService.role === "User") {
+          this.router.navigate(["account"]);
+        }else if (this.loginService.role === "Admin"){
+          this.router.navigate(["approval"]);
+        }
+
+      } else {
+        console.log("Not able to login " + this.loginService.errorMessage);
         this.error = "";
         this.appError = this.loginService.errorMessage;
       }

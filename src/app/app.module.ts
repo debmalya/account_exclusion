@@ -7,9 +7,10 @@ import { BackendService } from './backend.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { SearchComponent } from './components/search/search.component';
 import { AccountListComponent } from './account-list/account-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ApprovalComponent } from './approval/approval.component';
+
 
 
 
@@ -19,8 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     AppComponent,
     LoginComponent,
-    SearchComponent,
-    AccountListComponent
+    AccountListComponent,
+    ApprovalComponent,
   ],
   imports: [
     BrowserModule,

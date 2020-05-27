@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from '../account'
+import { BackendService } from '../backend.service';
 
 @Component({
   selector: 'app-account-list',
@@ -8,7 +9,14 @@ import { Account } from '../account'
 })
 export class AccountListComponent implements OnInit {
   private accounts:Account[]
-  constructor() { }
+  constructor(private service:BackendService) { 
+    this.service.getExcludedAccounts().subscribe(
+      data => {
+        this.accounts = data;
+        console.log("Accounts =" + JSON.stringify(this.accounts));
+      }
+    )  
+  }
 
   ngOnInit(): void {
   }

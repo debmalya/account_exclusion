@@ -21,7 +21,7 @@ export class BackendService {
   private validationURL = '/authenticate';
   private accountListURL = '/api/account/v0/retrieveAll';
 
-  accounts: Account[];
+  // accounts: Account[];
 
   // to authenticate a user 
   authenticate(credentials, callback) {
@@ -37,7 +37,7 @@ export class BackendService {
         this.authenticated = true;
         this.jwtToken = response['jwtToken'];
         this.role = response['role'];
-        console.log(`Role : ${this.role}`);
+        
       } else {
         if (response['errorMessage']) {
           this.errorMessage = response['errorMessage'];
