@@ -1,19 +1,14 @@
 package org.deb.account.exclusion.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
 public class JwtResponse implements Serializable {
-  private final String jwtToken;
-  private final String role;
-
-  public String getJwtToken() {
-    return jwtToken;
-  }
-
-  public JwtResponse(String jwtToken, String role) {
-    this.jwtToken = jwtToken;
-    this.role = role;
-  }
-
+  private  String jwtToken;
+  private  String role;
 
 }

@@ -1,11 +1,11 @@
 package org.deb.account.exclusion.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.deb.account.exclusion.component.AppUserDetailsService;
 import org.deb.account.exclusion.component.JwtTokenUtil;
 import org.deb.account.exclusion.model.ErrorResponse;
 import org.deb.account.exclusion.model.JwtResponse;
 import org.deb.account.exclusion.model.UserAuthenticationRequest;
-import org.deb.account.exclusion.component.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
@@ -47,7 +50,11 @@ public class AuthenticationController {
         UserDetails userDetails = appUserDetailsService.loadUserByUsername(userAuthenticationRequest.getUserName());
         if (userDetails.getPassword().equals(userAuthenticationRequest.getPassword())) {
           final String token = jwtTokenUtil.generateToken(userDetails);
-          responseEntity = ResponseEntity.ok(new JwtResponse(token, "User"));
+          String role = "User";
+           if (userDetails.getUsername().equals("John")) {
+             role = "Admin";
+          }
+          responseEntity = ResponseEntity.ok(new JwtResponse(token, role));
         } else {
           ErrorResponse errorResponse = new ErrorResponse("Either username or password is not valid");
           responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.OK);

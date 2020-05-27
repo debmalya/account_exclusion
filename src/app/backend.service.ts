@@ -14,6 +14,7 @@ export class BackendService {
   authenticated = false;
   jwtToken = "";
   errorMessage = "";
+  role = "";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -34,8 +35,9 @@ export class BackendService {
     this.httpClient.post<string>(this.validationURL, credentials, httpOptions).subscribe(response => {
       if (response['jwtToken']) {
         this.authenticated = true;
-        this.jwtToken = response['jwtToken']
-
+        this.jwtToken = response['jwtToken'];
+        this.role = response['role'];
+        console.log(`Role : ${this.role}`);
       } else {
         if (response['errorMessage']) {
           this.errorMessage = response['errorMessage'];
