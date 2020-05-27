@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
    error = "";
    appError = "";
    accounts$;
+   userName="";
    
 
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
             this.accounts$ = data;
             console.log("Accounts =" + JSON.stringify(this.accounts$));
             // this.router.navigateByUrl(`account`);
+            this.router.navigate(["account"]);
           }
         )  
       }else{

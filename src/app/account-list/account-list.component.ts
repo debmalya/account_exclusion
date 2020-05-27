@@ -7,7 +7,7 @@ import { Account } from '../account'
   styleUrls: ['./account-list.component.css']
 })
 export class AccountListComponent implements OnInit {
-
+  private accounts:Account[]
   constructor() { }
 
   ngOnInit(): void {
