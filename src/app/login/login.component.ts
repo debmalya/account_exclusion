@@ -1,5 +1,7 @@
 import { BackendService } from '../backend.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   credentials = {userName: '', password: ''};
-  constructor(private loginService : BackendService) { }
+  constructor(private loginService : BackendService,private router: Router) { }
    error = "";
    appError = "";
    accounts$;
@@ -19,11 +21,17 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.authenticate(this.credentials,()=>{
       if (this.loginService.authenticated){
-       console.log("Time to route to next page :"+JSON.stringify(this.loginService.jwtToken));
+      
         this.error="";
         this.appError="";
-//         this.accounts$ = this.loginService.getAccountList();
-        // console.log("Fetched accounts :"+JSON.stringify(this.accounts$));
+        
+        this.loginService.getExcludedAccounts().subscribe(
+          data => {
+            this.accounts$ = data;
+            console.log("Accounts =" + JSON.stringify(this.accounts$));
+            // this.router.navigateByUrl(`account`);
+          }
+        )  
       }else{
         console.log("Not able to login "+this.loginService.errorMessage);
         this.error = "";

@@ -1,7 +1,6 @@
 package org.deb.account.exclusion.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.deb.account.exclusion.entity.ExclusionAccounts;
 import org.deb.account.exclusion.entity.SubmittedRequest;
 import org.deb.account.exclusion.enums.RequestStatus;
 import org.deb.account.exclusion.model.ExclusionAccountRequest;
@@ -37,8 +36,7 @@ public class AccountController {
 
   @CrossOrigin(origins = "*")
   @GetMapping(value = "/retrieveAll")
-  public ResponseEntity<List<ExclusionAccounts>> getAllExcludedAccounts() {
-    log.info("Get all accounts called");
+  public ResponseEntity<?> getAllExcludedAccounts() {
     return new ResponseEntity<>(accountRepository.findAll(), HttpStatus.OK);
   }
 

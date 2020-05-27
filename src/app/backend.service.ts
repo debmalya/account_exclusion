@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { Response } from 'selenium-webdriver/http';
+import { Account } from './account';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,32 +15,45 @@ export class BackendService {
   jwtToken = "";
   errorMessage = "";
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-     private validationURL = '/authenticate';
-     private accountListURL = '/api/account/v0/retrieveAll';
+  private validationURL = '/authenticate';
+  private accountListURL = '/api/account/v0/retrieveAll';
 
-      authenticate(credentials, callback) {
+  accounts: Account[];
 
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        };
+  // to authenticate a user 
+  authenticate(credentials, callback) {
 
-        this.http.post<string>(this.validationURL, credentials, httpOptions).subscribe(response => {
-          if (response['jwtToken']) {
-            this.authenticated = true;
-            this.jwtToken = response['jwtToken']
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-          } else {
-            if (response['errorMessage']) {
-              this.errorMessage = response['errorMessage'];
-            }
-            this.authenticated = false;
-          }
-          return callback && callback();
-        });
+    this.httpClient.post<string>(this.validationURL, credentials, httpOptions).subscribe(response => {
+      if (response['jwtToken']) {
+        this.authenticated = true;
+        this.jwtToken = response['jwtToken']
+
+      } else {
+        if (response['errorMessage']) {
+          this.errorMessage = response['errorMessage'];
+        }
+        this.authenticated = false;
       }
+      return callback && callback();
+    });
+  }
 
+  // to retrieve already excluded account list
+  getExcludedAccounts(): Observable<Account[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.jwtToken}`
+      })
+    };
+    return this.httpClient.get<Account[]>(this.accountListURL,httpOptions);
+  }
 }
