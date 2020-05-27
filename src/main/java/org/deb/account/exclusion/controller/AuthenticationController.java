@@ -47,7 +47,7 @@ public class AuthenticationController {
         UserDetails userDetails = appUserDetailsService.loadUserByUsername(userAuthenticationRequest.getUserName());
         if (userDetails.getPassword().equals(userAuthenticationRequest.getPassword())) {
           final String token = jwtTokenUtil.generateToken(userDetails);
-          responseEntity = ResponseEntity.ok(new JwtResponse(token));
+          responseEntity = ResponseEntity.ok(new JwtResponse(token, "User"));
         } else {
           ErrorResponse errorResponse = new ErrorResponse("Either username or password is not valid");
           responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.OK);

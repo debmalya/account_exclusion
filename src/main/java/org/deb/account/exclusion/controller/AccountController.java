@@ -21,7 +21,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/account" + Constatnts.VERSION_ZERO)
 @Slf4j
-@CrossOrigin(origins = "*")
 public class AccountController {
   private final AccountRepository accountRepository;
 
@@ -34,7 +33,7 @@ public class AccountController {
   }
 
 
-  @CrossOrigin(origins = "*")
+
   @GetMapping(value = "/retrieveAll")
   public ResponseEntity<?> getAllExcludedAccounts() {
     return new ResponseEntity<>(accountRepository.findAll(), HttpStatus.OK);
