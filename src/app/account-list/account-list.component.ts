@@ -8,17 +8,15 @@ import { BackendService } from '../backend.service';
   styleUrls: ['./account-list.component.css']
 })
 export class AccountListComponent implements OnInit {
-  accounts:Account[]
-  constructor(private service:BackendService) { 
+  accounts: Account[]
+  constructor(private service: BackendService) {
   }
 
   ngOnInit(): void {
     this.service.getExcludedAccounts().subscribe(
       data => {
         this.accounts = data;
-        console.log("Accounts =" + JSON.stringify(this.accounts));
       }
-    )  
+    )
   }
-
 }

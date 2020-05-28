@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Account } from './account';
+import { Exclusionrequest } from './exclusionrequest';
 
 
 
@@ -20,6 +21,7 @@ export class BackendService {
 
   private validationURL = '/authenticate';
   private accountListURL = '/api/account/v0/retrieveAll';
+  private exclusionRequests = '/api/approval/v0/get/all';
 
   // accounts: Account[];
 
@@ -37,7 +39,7 @@ export class BackendService {
         this.authenticated = true;
         this.jwtToken = response['jwtToken'];
         this.role = response['role'];
-        
+
       } else {
         if (response['errorMessage']) {
           this.errorMessage = response['errorMessage'];
@@ -56,6 +58,19 @@ export class BackendService {
         'Authorization': `Bearer ${this.jwtToken}`
       })
     };
-    return this.httpClient.get<Account[]>(this.accountListURL,httpOptions);
+    return this.httpClient.get<Account[]>(this.accountListURL, httpOptions);
   }
+
+  // to retrieve all pending requests
+  getPendingRequests(): Observable<Exclusionrequest[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.jwtToken}`
+      })
+    };
+    return this.httpClient.get<Exclusionrequest[]>(this.exclusionRequests, httpOptions);
+  }
+
 }
+

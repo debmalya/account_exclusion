@@ -13,11 +13,13 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: BackendService, private router: Router) { }
   error = "";
   appError = "";
-  accounts$;
   userName = "";
 
 
   ngOnInit(): void {
+    this.error = "";
+    this.appError = "";
+    this.userName = "";
   }
 
   login() {
@@ -27,27 +29,23 @@ export class LoginComponent implements OnInit {
         this.error = "";
         this.appError = "";
 
-        /*
-        this.loginService.getExcludedAccounts().subscribe(
-          data => {
-            this.accounts$ = data;
-            console.log("Accounts =" + JSON.stringify(this.accounts$));
-            // this.router.navigateByUrl(`account`);
-          }
-        ) 
-        */
+
         if (this.loginService.role === "User") {
           this.router.navigate(["account"]);
-        }else if (this.loginService.role === "Admin"){
+        } else if (this.loginService.role === "Admin") {
           this.router.navigate(["approval"]);
         }
 
       } else {
-        console.log("Not able to login " + this.loginService.errorMessage);
         this.error = "";
         this.appError = this.loginService.errorMessage;
       }
 
     });
+  }
+
+  logout() {
+    this.userName = "";
+    this.loginService.jwtToken = "";
   }
 }

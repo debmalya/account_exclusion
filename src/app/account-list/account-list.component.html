@@ -1,5 +1,25 @@
 <p>Manage account exclusion</p>
 
-<p *ngFor="let account of accounts">
-    {{account.accountNumber}}
-</p>
+<div class="container">
+
+    <div class="main-content">
+        <div *ngIf="accounts?.length == 0" class="alert alert-warning col-md-12" role="alert">
+            There is no account in the exclusion list.
+        </div>
+        <table class="table table-bordered">
+            <!--
+            <tr>
+                <th width="60%">Account</th>
+                <th width="40%">Action</th>
+            </tr>
+             -->
+            <div class="row" *ngFor="let account of accounts">
+                <div class="col justify-content-center">
+                    <td><input [(ngModel)]="account.accountNumber"></td>
+                    <td><button class="btn btn-danger">Remove from exclusion list</button></td>
+                </div>
+            </div>
+        </table>
+        <button class="btn btn-primary btn-sm mt-s">Add an account to exclusion list</button>
+    </div>
+</div>
