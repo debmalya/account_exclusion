@@ -1,25 +1,26 @@
 <p>Manage account exclusion</p>
-
-<div class="container">
-
-    <div class="main-content">
-        <div *ngIf="accounts?.length == 0" class="alert alert-warning col-md-12" role="alert">
-            There is no account in the exclusion list.
+<form [formGroup]="accountsForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="accounts">
+        <h3>Accounts to be excluded</h3>
+        <div *ngFor="let account of accounts.controls; let i=index">
+            <!-- The repeated alias template -->
+            <label>
+                Account:
+                <input type="text" [formControlName]="i" minlength="10" maxlength="20" required="true">
+            </label>
         </div>
-        <table class="table table-bordered">
-            <!--
-            <tr>
-                <th width="60%">Account</th>
-                <th width="40%">Action</th>
-            </tr>
-             -->
-            <div class="row" *ngFor="let account of accounts">
-                <div class="col justify-content-center">
-                    <td><input [(ngModel)]="account.accountNumber"></td>
-                    <td><button class="btn btn-danger">Remove from exclusion list</button></td>
-                </div>
-            </div>
-        </table>
-        <button class="btn btn-primary btn-sm mt-s">Add an account to exclusion list</button>
     </div>
-</div>
+    <button (click)="addAccounts()">Add Account</button>
+    <p>
+        <button type="submit" [disabled]="!accountsForm.valid" class="btn btn-outline-warning">Submit</button>
+    </p>
+</form>
+
+<p>
+    Form Value: {{ accountsForm.value | json }}
+</p>
+
+
+<p>
+    Form Status: {{ accountsForm.status }}
+</p>
