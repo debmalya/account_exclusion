@@ -27,6 +27,7 @@ export class BackendService {
   private exclusionRequests = '/api/approval/v0/get/all';
   private addRequestURL = '/api/account/v0/exclude';
   private searchPendingRequestsURL = '/api/submittedRequest/search/findByRequestStatus?requestStatus=PENDING&page=';
+  private approvalRequestURL = '/api/approval/v0/all';
 
 
   // accounts: Account[];
@@ -67,17 +68,26 @@ export class BackendService {
   }
 
   // to retrieve all pending requests
-  getPendingRequests(pageNo, pageSize): Observable<Exclusionrequest[]> {
+  getPendingRequests(pageNo, pageSize): Observable<GetPendingRequests> {
 
-    return this.httpClient.get<GetPendingRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions()).pipe(map(response => response._embedded.requests),
+    console.log("getPendingRequests called");
+    return this.httpClient.get<GetPendingRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions());
+    /*.pipe(map(response => response._embedded.requests),
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError));
+    */
   }
 
   // submit add requests
   addRequests(requestPayload, callback) {
     this.httpClient.post(this.addRequestURL, requestPayload, this.generateHttpOptions()).subscribe(response => {
       return callback && callback();
+    });
+  }
+
+  approval(requestPayload, callback) {
+    this.httpClient.post(this.approvalRequestURL, requestPayload, this.generateHttpOptions()).subscribe(response => {
+      return callback & callback();
     });
   }
 
@@ -114,6 +124,9 @@ export class BackendService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+      if (error.status === 401) {
+        // JWT Token expired, need to relogin
+      }
     }
     // return an observable with a user-facing error message
     return throwError(

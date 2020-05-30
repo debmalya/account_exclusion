@@ -1,12 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" routerLink="/account" routerLinkActive="active-link">Exclude accounts</a>
+            <a class="nav-item nav-link" routerLink="/account" routerLinkActive="active-link">Excluded accounts</a>
             <a class="nav-item nav-link" routerLink="#">Check pending requests</a>
+            
             <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                   </form>
+                 
+                  <!-- 
+                  <div class="form-header">
+
+                        <input #myInput type="text" 
+                               placeholder="Search by account number ..."
+                               class="au-input au-input-xl"
+                                />
+                    
+                        <button class="au-btn-submit">
+                            Search
+                        </button>
+                    
+                    </div>      
+                    -->
             <form class="form-inline" role="form" (submit)="logout()">
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>

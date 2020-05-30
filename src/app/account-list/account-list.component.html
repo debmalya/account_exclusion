@@ -18,6 +18,9 @@
     <p>
         <button type="submit" [disabled]="!accountsForm.valid" class="btn btn-outline-warning">Submit</button>
     </p>
+    <div *ngIf="statusMessage!=''" class="alert alert-warning col-md-12" role="alert">
+            {{statusMessage}}
+    </div>
 </form>
 
 <p>
@@ -34,3 +37,5 @@
         Account numbers must have 9 to 20 characters.
     <!-- </div> -->
 </div>
+
+<div class="errorMessage" *ngIf="!accountsForm.status"> Account numbers must have 9 to 20 characters.</div>

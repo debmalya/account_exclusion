@@ -56,6 +56,14 @@
       <artifactId>flyway-core</artifactId>
     </dependency>
 
+    <!-- For processing CSV files -->
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.2</version>
+    </dependency>
+
+
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>

@@ -1,6 +1,49 @@
- <app-admin></app-admin>
+<app-admin></app-admin>
 <!-- if there is exclusion request then display a message -->
 <div *ngIf="exclusionRequests?.length == 0" class="alert alert-warning col-md-12" role="alert">
-    There is no pending request. 
+    There is no pending request.
 </div>
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <form role="form" (submit)="submitForApproval()">
+                    <div *ngFor="let eachExclusionRequest of exclusionRequests" class="col-md-15">
+                        <!-- <div class="product-box">  -->
+                        <div>Submitted Date: {{ eachExclusionRequest.submittedDate  }}</div>
+                        <div>Submitted By :{{ eachExclusionRequest.submittedBy  }}</div>
+                        <div>Account Number:{{ eachExclusionRequest.accountNumber  }}</div>
+                        <div><button class="btn btn-success" (click)="addToApproval(eachExclusionRequest,'APPROVE')">Approve</button></div>
+                        <div><button class="btn btn-danger" (click)="addToApproval(eachExclusionRequest,'REJECT')">Reject</button></div>
+                        <!-- </div> -->
+                    </div>
+                    <p>
+                        <button type="submit" [disabled]="requestMap.size == 0"
+                            class="btn btn-outline-warning">Submit</button>
+                    </p>
+                    <div *ngIf="submissionResult!=''" class="alert alert-warning col-md-12" role="alert">
+                        {{submissionResult}}
+                    </div>
+                </form>
+            </div>
+        </div>
 
+
+        <div class="footer-pagination">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-9" style="padding-left: 30%">
+                            <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                [collectionSize]="theTotalElements" [maxSize]="5"
+                                (pageChange)="handlePendingRequestList()">
+
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
