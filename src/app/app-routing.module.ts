@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'account', component: AccountListComponent },
   { path: 'approval', component: ApprovalComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   { path: '', component: LoginComponent }
 ];
 

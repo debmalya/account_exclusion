@@ -16,6 +16,7 @@ export class BackendService {
   jwtToken = "";
   errorMessage = "";
   role = "";
+  userName = "";
 
   
 
@@ -42,7 +43,8 @@ export class BackendService {
         this.authenticated = true;
         this.jwtToken = response['jwtToken'];
         this.role = response['role'];
-
+        // this.userName = JSON.parse(credentials)["userName"];
+        // console.log(this.userName);
       } else {
         if (response['errorMessage']) {
           this.errorMessage = response['errorMessage'];
@@ -77,16 +79,18 @@ export class BackendService {
 
   // submit add requests
   addRequests(requestPayload,callback){
-    const httpOptions =  {
+    this.httpClient.post(this.addRequestURL,requestPayload,this.generateHttpOptions()).subscribe(response => {
+      return callback && callback();
+    });
+  }
+
+  private generateHttpOptions() {
+    return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.jwtToken}`
       })
-    }; 
-    
-    this.httpClient.post(this.addRequestURL,requestPayload,httpOptions).subscribe(response => {
-      return callback && callback();
-    });
+    };
   }
 
   addRequests0(requestPayload,callback){

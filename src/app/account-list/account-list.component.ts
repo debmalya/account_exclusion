@@ -27,6 +27,7 @@ export class AccountListComponent implements OnInit {
       }
     )
     */
+   
   }
 
   get accounts() {
@@ -42,6 +43,7 @@ export class AccountListComponent implements OnInit {
     console.warn(this.accountsForm.value);
     this.backendService.addRequests(this.accountsForm.value,() => {
       console.log("Request submitted");
+      this.fb.array([this.fb.control('')]);
     })
   }
 

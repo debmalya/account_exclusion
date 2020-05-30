@@ -6,9 +6,10 @@
             <!-- The repeated alias template -->
             <label>
                 Account:
-                
-                    <input type="text" [formControlName]="i" minlength="9" maxlength="20" required="true" class="p-3 mb-2 bg-primary text-white">
-                
+
+                <input type="text" [formControlName]="i" minlength="9" maxlength="20" required="true"
+                    class="p-3 mb-2 bg-primary text-white">
+
             </label>
         </div>
     </div>
@@ -26,6 +27,9 @@
 <p>
     Form Status: {{ accountsForm.status }}
 </p>
-<div class="alert alert-danger" [hidden]="!accountsForm.status">
-    Account number must have 9 to 20 characters.
+
+<div *ngIf="!accountsForm.status" class="alert alert-warning col-md-12" role="alert">
+    <!-- <div class="alert alert-danger" [hidden]="!accountsForm.status"> -->
+        Account numbers must have 9 to 20 characters.
+    <!-- </div> -->
 </div>

@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { AccountListComponent } from './account-list/account-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApprovalComponent } from './approval/approval.component';
+import { HeaderComponent } from './menu/header/header.component';
+import { FooterComponent } from './menu/footer/footer.component';
 
 
 
@@ -23,6 +25,8 @@ import { ApprovalComponent } from './approval/approval.component';
     LoginComponent,
     AccountListComponent,
     ApprovalComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

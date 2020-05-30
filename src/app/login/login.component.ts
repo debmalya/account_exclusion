@@ -44,9 +44,5 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.userName = "";
-    this.loginService.jwtToken = "";
-    this.router.navigate["login"];
-  }
+  
 }
