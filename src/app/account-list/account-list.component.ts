@@ -16,7 +16,7 @@ export class AccountListComponent implements OnInit {
       this.fb.control('')
     ])
   });
-  constructor(private service: BackendService,private fb: FormBuilder) {
+  constructor(private backendService: BackendService,private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -40,6 +40,9 @@ export class AccountListComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.accountsForm.value);
+    this.backendService.addRequests(this.accountsForm.value,() => {
+      console.log("Request submitted");
+    })
   }
 
 }

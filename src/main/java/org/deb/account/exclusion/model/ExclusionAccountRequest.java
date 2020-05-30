@@ -1,10 +1,12 @@
 package org.deb.account.exclusion.model;
 
 import lombok.Data;
-import org.deb.account.exclusion.enums.ActionOnAccount;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class ExclusionAccountRequest {
-  private String accountNumber;
-  private ActionOnAccount actionOnAccount;
+  private List<String> accounts = new ArrayList<>();
+
 }

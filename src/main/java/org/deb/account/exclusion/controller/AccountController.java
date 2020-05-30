@@ -33,34 +33,32 @@ public class AccountController {
   }
 
 
-
   @GetMapping(value = "/retrieveAll")
   public ResponseEntity<?> getAllExcludedAccounts() {
     return new ResponseEntity<>(accountRepository.findAll(), HttpStatus.OK);
   }
 
   @PostMapping(value = "/exclude")
-  public ResponseEntity<?> excludeAccounts(@RequestBody List<ExclusionAccountRequest> accountList) {
+  public ResponseEntity<?> excludeAccounts(@RequestBody ExclusionAccountRequest accountList) {
     String[] submitter = new RequestUtil().getCurrentUserName();
     if (!submitter[1].equals("User")) {
       return new ResponseEntity<String>(String.format("Your role '%s' is not authorize to do this operation.", submitter[1]), HttpStatus.UNAUTHORIZED);
     }
     List<SubmittedRequest> submittedRequests = new ArrayList<>();
     List<String> errorMessages = new ArrayList<>();
-    for (ExclusionAccountRequest exclusionAccountRequest : accountList) {
+    for (String accountNumber : accountList.getAccounts()) {
       try {
         SubmittedRequest submittedRequest = new SubmittedRequest();
         submittedRequest.setRequestID(UUID.randomUUID());
-        submittedRequest.setAccountNumber(exclusionAccountRequest.getAccountNumber());
+        submittedRequest.setAccountNumber(accountNumber);
         submittedRequest.setSubmittedBy(submitter[0]);
         submittedRequest.setSubmittedDate(new Date());
         submittedRequest.setRequestStatus(RequestStatus.PENDING);
-        submittedRequest.setActionOnAccount(exclusionAccountRequest.getActionOnAccount());
         SubmittedRequest savedSubmittedRequest = userRequestRepository.saveAndFlush(submittedRequest);
         log.info(savedSubmittedRequest.getRequestID().toString());
         submittedRequests.add(savedSubmittedRequest);
       } catch (Exception exc) {
-        errorMessages.add(String.format("There is already a request for account '%s'. ", exclusionAccountRequest.getAccountNumber()));
+        errorMessages.add(String.format("There is already a request for account '%s'. ", accountNumber));
       }
     }
     if (errorMessages.isEmpty()) {
