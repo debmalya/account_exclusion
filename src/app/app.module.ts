@@ -13,6 +13,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApprovalComponent } from './approval/approval.component';
 import { HeaderComponent } from './menu/header/header.component';
 import { FooterComponent } from './menu/footer/footer.component';
+import { MainComponent } from './menu/main/main.component';
+import { UserComponent } from './menu/user/user.component';
+import { AdminComponent } from './menu/admin/admin.component';
 
 
 
@@ -27,6 +30,9 @@ import { FooterComponent } from './menu/footer/footer.component';
     ApprovalComponent,
     HeaderComponent,
     FooterComponent,
+    MainComponent,
+    UserComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

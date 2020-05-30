@@ -18,7 +18,7 @@ export class BackendService {
   role = "";
   userName = "";
 
-  
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,6 +26,8 @@ export class BackendService {
   private accountListURL = '/api/account/v0/retrieveAll';
   private exclusionRequests = '/api/approval/v0/get/all';
   private addRequestURL = '/api/account/v0/exclude';
+  private searchPendingRequestsURL = '/api/submittedRequest/search/findByRequestStatus?requestStatus=PENDING&page=';
+
 
   // accounts: Account[];
 
@@ -43,8 +45,6 @@ export class BackendService {
         this.authenticated = true;
         this.jwtToken = response['jwtToken'];
         this.role = response['role'];
-        // this.userName = JSON.parse(credentials)["userName"];
-        // console.log(this.userName);
       } else {
         if (response['errorMessage']) {
           this.errorMessage = response['errorMessage'];
@@ -67,19 +67,16 @@ export class BackendService {
   }
 
   // to retrieve all pending requests
-  getPendingRequests(): Observable<Exclusionrequest[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.jwtToken}`
-      })
-    };
-    return this.httpClient.get<Exclusionrequest[]>(this.exclusionRequests, httpOptions);
+  getPendingRequests(pageNo, pageSize): Observable<Exclusionrequest[]> {
+
+    return this.httpClient.get<GetPendingRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions()).pipe(map(response => response._embedded.requests),
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError));
   }
 
   // submit add requests
-  addRequests(requestPayload,callback){
-    this.httpClient.post(this.addRequestURL,requestPayload,this.generateHttpOptions()).subscribe(response => {
+  addRequests(requestPayload, callback) {
+    this.httpClient.post(this.addRequestURL, requestPayload, this.generateHttpOptions()).subscribe(response => {
       return callback && callback();
     });
   }
@@ -93,15 +90,15 @@ export class BackendService {
     };
   }
 
-  addRequests0(requestPayload,callback){
-    const httpOptions =  {
+  addRequests0(requestPayload, callback) {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.jwtToken}`
       })
-    }; 
-    
-    this.httpClient.post(this.addRequestURL,requestPayload,httpOptions).pipe(
+    };
+
+    this.httpClient.post(this.addRequestURL, requestPayload, httpOptions).pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError));
   }
@@ -123,5 +120,24 @@ export class BackendService {
       'Something bad happened; please try again later.');
   };
 
+  logout() {
+    this.jwtToken = "";
+    this.authenticated = false;
+    this.role = "";
+    this.userName = "";
+  }
+
+}
+
+interface GetPendingRequests {
+  _embedded: {
+    requests: Exclusionrequest[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
 }
 

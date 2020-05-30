@@ -5,11 +5,13 @@ import org.deb.account.exclusion.entity.ExclusionAccounts;
 import org.deb.account.exclusion.repository.AccountRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @ComponentScan("org.deb.account.exclusion.*")
 @Slf4j
 public class Application {

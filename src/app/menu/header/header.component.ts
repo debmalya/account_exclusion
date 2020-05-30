@@ -18,14 +18,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout() {
-    this.backendService.jwtToken = "";
-    this.backendService.authenticated = false;
-    this.backendService.role = "";
-    this.backendService.userName = "";
-
-    console.log("logout called");
-    this.router.navigate(["logout"]);
-  }
+  
 
 }

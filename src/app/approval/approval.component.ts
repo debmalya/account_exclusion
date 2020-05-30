@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Exclusionrequest } from '../exclusionrequest';
 import { BackendService } from '../backend.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-approval',
@@ -10,12 +11,13 @@ import { BackendService } from '../backend.service';
 export class ApprovalComponent implements OnInit {
 
   exclusionRequests: Exclusionrequest[];
-  constructor(private service: BackendService) { }
+  constructor(private service: BackendService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.service.getPendingRequests().subscribe(
+    this.service.getPendingRequests(0,10).subscribe(
       data => {
         this.exclusionRequests = data;
+        console.log(JSON.stringify(this.exclusionRequests));
       }
     )
   }
