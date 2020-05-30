@@ -2,7 +2,7 @@
 <p class="h3">Title: Account submission screen</p>
 <form [formGroup]="accountsForm" (ngSubmit)="onSubmit()">
     <div formArrayName="accounts">
-        <h3>Accounts to be excluded</h3>
+        <!-- <h3>Accounts to be excluded</h3> -->
         <div *ngFor="let account of accounts.controls; let i=index">
             <!-- The repeated alias template -->
             <label>
