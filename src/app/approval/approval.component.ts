@@ -11,13 +11,13 @@ import { FormBuilder } from '@angular/forms';
 export class ApprovalComponent implements OnInit {
 
   exclusionRequests: Exclusionrequest[];
+  
   constructor(private service: BackendService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.service.getPendingRequests(0,10).subscribe(
+    this.service.getPendingRequests(0,20).subscribe(
       data => {
         this.exclusionRequests = data;
-        console.log(JSON.stringify(this.exclusionRequests));
       }
     )
   }

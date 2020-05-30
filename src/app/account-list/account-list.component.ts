@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Account } from '../account'
 import { BackendService } from '../backend.service';
 import { FormBuilder } from '@angular/forms';
 import { FormArray } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-account-list',
@@ -16,6 +15,7 @@ export class AccountListComponent implements OnInit {
       this.fb.control('')
     ])
   });
+  statusMessage :string;
   constructor(private backendService: BackendService,private fb: FormBuilder) {
   }
 
@@ -39,11 +39,8 @@ export class AccountListComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.accountsForm.value);
     this.backendService.addRequests(this.accountsForm.value,() => {
-      console.log("Request submitted");
-      this.fb.array([this.fb.control('')]);
+      this.statusMessage = "Submission successful";
     })
   }
 
