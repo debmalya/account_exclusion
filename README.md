@@ -48,5 +48,6 @@ The above one will do the following things :
 #### John approves the first one and rejects second one
 ![John views all requests](./docs/UserRequests.png)
 #### John views all requests status updated to 'APPROVED' and 'REJECTED'.
-
+![New excluded account](./docs/ExcluedeAccounts.png)
+#### Excluded account listed new account 0414020690
 
