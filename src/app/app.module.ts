@@ -18,6 +18,7 @@ import { UserComponent } from './menu/user/user.component';
 import { AdminComponent } from './menu/admin/admin.component';
 import { AccountsViewComponent } from './view/accounts-view/accounts-view.component';
 import { RequestViewComponent } from './view/request-view/request-view.component';
+import { BatchrunComponent } from './batchrun/batchrun.component';
 
 
 
@@ -37,6 +38,7 @@ import { RequestViewComponent } from './view/request-view/request-view.component
     AdminComponent,
     AccountsViewComponent,
     RequestViewComponent,
+    BatchrunComponent,
   ],
   imports: [
     BrowserModule,

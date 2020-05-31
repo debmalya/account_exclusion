@@ -8,20 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppConfig {
 
-    
+
     @Value("${security_enabled:true}")
     private boolean securityEnabled;
 
-    @Value("${monthly.batch_file}")
-    private String fileNameWithPath;
-    
+
+
     /**
      * Constructor
      */
     public AppConfig() {
         super();
     }
-	
 
-    
+
+
 }

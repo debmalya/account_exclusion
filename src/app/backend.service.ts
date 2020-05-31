@@ -29,6 +29,7 @@ export class BackendService {
   private searchPendingRequestsURL = '/api/submittedRequest/search/findByRequestStatus?requestStatus=PENDING&page=';
   private searchAccountNumberURL = '/api/accounts/search/findByAccountNumberContaining?accountNumber=';
   private approvalRequestURL = '/api/approval/v0/all';
+  private batchRunURL = '/api/approval/v0/runbatch';
   
 
 
@@ -58,6 +59,12 @@ export class BackendService {
     });
   }
 
+  batchRun(callback){
+    this.httpClient.post<string>(this.batchRunURL,this.generateHttpOptions).subscribe(response =>{
+      return callback && callback();
+    });
+  }
+
   // to retrieve already excluded account list
   getExcludedAccounts(): Observable<Account[]> {
     const httpOptions = {
@@ -81,6 +88,7 @@ export class BackendService {
   getAllRequests(pageNo,pageSize): Observable<GetExclusionRequests>{
     return this.httpClient.get<GetExclusionRequests>(this.exclusionRequests+pageNo+"&size="+pageSize,this.generateHttpOptions());
   }
+
 
   getSearchedAccount(accountNumber,pageNo,pageSize){
     console.log("getSearchedAccount called");

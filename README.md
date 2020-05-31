@@ -47,7 +47,10 @@ The above one will do the following things :
 ![John get pending requests](./docs/JohnGotThePendingReques.png)
 #### John approves the first one and rejects second one
 ![John views all requests](./docs/UserRequests.png)
-#### John views all requests status updated to 'APPROVED' and 'REJECTED'.
+#### John views requests status updated to 'APPROVED' and 'REJECTED'.
 ![New excluded account](./docs/ExcluedeAccounts.png)
-#### Excluded account listed new account 0414020690
-
+##### Excluded account listed new account 0414020690
+#### Use case 6: During batch run - system will read  EXCLUSION_ACCOUNTS table and load the list of account , and remove the respective account from the file
+* Property `monthly.batch_file=batch_file.csv` is configured in applicaton.properites . Mentioned file must be present in the classpath.
+* batch run is exposed as an API. It can be called from Admin menu.
+* after batch run please check the specified file in the classpath.

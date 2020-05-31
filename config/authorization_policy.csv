@@ -25,6 +25,7 @@ g, User, role_view_request
 g2, Admin, role_approve
 g2, Admin, role_reject
 g2, Admin, role_view_request
+g2, Admin, role_batch_run
 
 # --------------------------------------------------------------------------------
 # ROLE policies : role_account_add
@@ -64,4 +65,9 @@ p, HTTP, role_account_remove, /reject/v0/account/**, POST
 # ROLE policies : role_view_request
 # --------------------------------------------------------------------------------
 p, HTTP, role_view_request, /requests/v0/retrieve, GET
+
+# --------------------------------------------------------------------------------
+# ROLE policies : role_batch_run
+# --------------------------------------------------------------------------------
+p, HTTP, role_batch_run, /api/approval/v0/runbatch, POST
 
