@@ -42,6 +42,6 @@ export class AccountsViewComponent implements OnInit {
    }
 
    removeAccount(account){
-     alert(`${account} will be removed from EXCLUSION_ACCOUNTS after approval. [to be implemented]`);
+     alert(JSON.stringify(account) +" will be removed from EXCLUSION_ACCOUNTS after approval. [to be implemented]");
    }
 }
