@@ -43,11 +43,15 @@ The above one will do the following things :
 ![Pending requests](./docs/NoPendingRequests.png)
 #### Use case 5: Given John login to the system, when John reject user submitted request ,  then USER_REQUEST table will be updated with rejected status.
 ![Tom Submits Requests](./docs/TomSubmittedRequest.png)
-##### John logged in see the pending requests.
+##### John logged in to see the pending requests.
 ![John get pending requests](./docs/JohnGotThePendingReques.png)
 #### John approves the first one and rejects second one
 ![John views all requests](./docs/UserRequests.png)
 #### John views requests status updated to 'APPROVED' and 'REJECTED'.
+#### This another way to show all the requests.
+![All requests](./docs/Rquests.png)
+APPROVED requests appear with green background.
+REJECTED requests appear with different background and so on.
 ![New excluded account](./docs/ExcluedeAccounts.png)
 ##### Excluded account listed new account 0414020690
 #### Use case 6: During batch run - system will read  EXCLUSION_ACCOUNTS table and load the list of account , and remove the respective account from the file

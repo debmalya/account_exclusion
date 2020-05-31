@@ -10,9 +10,10 @@
 <div *ngIf="exclusionRequests?.length == 0" class="alert alert-warning col-md-12" role="alert">
     Currently there is no requests.
 </div>
+
 <div class="main-content">
     <div class="section-content section-content-p30">
-        <div class="container-fluid">
+        <!--       <div class="container-fluid">
             <div class="row">
 
                 <div *ngFor="let eachExclusionRequest of exclusionRequests" class="col-md-15">
@@ -36,13 +37,71 @@
                         </div>
                         <div *ngIf="eachExclusionRequest.requestStatus === 'PENDING'">
                                 <span class="label label-default">{{ eachExclusionRequest.requestStatus  }}</span>
-                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
+-->
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Submitted Date</th>
+                        <th>Submitted By</th>
+                        <th>Account Number</th>
+                        <th>Approval Date</th>
+                        <th>Approved By</th>
+                        <th>Current Status</th>
+                    </tr>
+                </thead>
 
+
+                <tbody>
+                    <ng-container *ngFor="let eachExclusionRequest of exclusionRequests">
+                        <tr *ngIf="eachExclusionRequest.requestStatus === 'APPROVED'" class="success">
+                            <td>{{ eachExclusionRequest.requestID  }}</td>
+                            <td>{{ eachExclusionRequest.submittedDate  }}</td>
+                            <td>{{ eachExclusionRequest.submittedBy  }}</td>
+                            <td>{{ eachExclusionRequest.accountNumber  }}</td>
+                            <td>{{ eachExclusionRequest.approvalDate }}</td>
+                            <td>{{ eachExclusionRequest.approvedBy  }}</td>
+                            <td>{{ eachExclusionRequest.requestStatus  }}</td>
+                        </tr>
+                        <tr *ngIf="eachExclusionRequest.requestStatus === 'REJECTED'" class="danger">
+                            <td>{{ eachExclusionRequest.requestID  }}</td>
+                            <td>{{ eachExclusionRequest.submittedDate  }}</td>
+                            <td>{{ eachExclusionRequest.submittedBy  }}</td>
+                            <td>{{ eachExclusionRequest.accountNumber  }}</td>
+                            <td>{{ eachExclusionRequest.approvalDate }}</td>
+                            <td>{{ eachExclusionRequest.approvedBy  }}</td>
+                            <td>{{ eachExclusionRequest.requestStatus  }}</td>
+                        </tr>
+                        <tr *ngIf="eachExclusionRequest.requestStatus === 'PENDING'" class="active">
+                            <td>{{ eachExclusionRequest.requestID  }}</td>
+                            <td>{{ eachExclusionRequest.submittedDate  }}</td>
+                            <td>{{ eachExclusionRequest.submittedBy  }}</td>
+                            <td>{{ eachExclusionRequest.accountNumber  }}</td>
+                            <td>{{ eachExclusionRequest.approvalDate }}</td>
+                            <td>{{ eachExclusionRequest.approvedBy  }}</td>
+                            <td>{{ eachExclusionRequest.requestStatus  }}</td>
+                        </tr>
+                        <tr *ngIf="eachExclusionRequest.requestStatus === 'CANCELLED'" class="info">
+                                <td>{{ eachExclusionRequest.requestID  }}</td>
+                                <td>{{ eachExclusionRequest.submittedDate  }}</td>
+                                <td>{{ eachExclusionRequest.submittedBy  }}</td>
+                                <td>{{ eachExclusionRequest.accountNumber  }}</td>
+                                <td>{{ eachExclusionRequest.approvalDate }}</td>
+                                <td>{{ eachExclusionRequest.approvedBy  }}</td>
+                                <td>{{ eachExclusionRequest.requestStatus  }}</td>
+                            </tr>
+                    </ng-container>
+                </tbody>
+
+            </table>
+        </div>
 
         <div class="footer-pagination">
             <div class="row">
