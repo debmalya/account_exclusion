@@ -9,6 +9,5 @@ CREATE TABLE IF NOT EXISTS `USER_REQUESTS` (
     `SUBMITTED_DATE` datetime not null,
     `APPROVED_BY` varchar(50),
     `APPROVAL_DATE` datetime not null,
-    `ACTION_ON_ACCOUNT` varchar(10) not null,
     `STATUS` varchar(10)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
