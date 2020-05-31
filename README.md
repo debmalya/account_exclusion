@@ -1,10 +1,28 @@
 # Technical Stack
 * Maven 
 * Java
-* Spring-boot
+* Spring-boot (spring-boot-starter-data-jpa, spring-boot-starter-data-rest, spring-data-rest-webmvc, spring-boot-starter-security)
 * Angular
 * H2
 * Flyway-db ( for migration )
+* JWT 
+* lombok 
+* jcasbin
+* frontend-maven-plugin
+
+# How to run the application
+```
+mvn spring-boot:run
+```
+The above one will do the following things :
+* It will install Node v12.16.3 if it is not already installed.
+* It will install NPM 6.14.4 if it is not already installed.
+* npm install
+* ng build
+* compile java code
+* run the application at port 5000
+* after successful running of the `mvn sprint-boot:run`. Please open http://localhost:5000
+
 
 #### Use case: Given Tom login to the system,  when Tom Add, Modify, Remove account number , then it will be  reflected as Pending approval in USER_REQUEST table
 
