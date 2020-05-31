@@ -34,6 +34,9 @@
                         <div *ngIf="eachExclusionRequest.requestStatus === 'CANCELLED'">
                             <span class="label label-warning">{{ eachExclusionRequest.requestStatus  }}</span>
                         </div>
+                        <div *ngIf="eachExclusionRequest.requestStatus === 'PENDING'">
+                                <span class="label label-default">{{ eachExclusionRequest.requestStatus  }}</span>
+                            </div>
                     </div>
 
                 </div>
