@@ -114,12 +114,14 @@ public class ApprovalController {
 
       List<Integer> accountsToBeRemoved = new ArrayList<>();
       for (int i = 1; i < fileContent.size(); i++) {
-        log.info(String.format("Comparing with '%s'", fileContent.get(i)[0]));
-        Optional<ExclusionAccounts> retrievedAccount = accountRepository.findById(fileContent.get(i)[0]);
-        if (retrievedAccount.isPresent()) {
-          log.info(String.format("Found matching account number '%s' in file.'", fileContent.get(i)[0]));
-          accountsToBeRemoved.add(i);
-//          break;
+        if (!fileContent.get(i)[0].equals("account_number")) {
+          log.info(String.format("Comparing with '%s'", fileContent.get(i)[0]));
+
+          Optional<ExclusionAccounts> retrievedAccount = accountRepository.findById(fileContent.get(i)[0]);
+          if (retrievedAccount.isPresent()) {
+            log.info(String.format("Found matching account number '%s' in file.'", fileContent.get(i)[0]));
+            accountsToBeRemoved.add(i);
+          }
         }
       }
 
