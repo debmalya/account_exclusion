@@ -48,10 +48,7 @@ The above one will do the following things :
 #### John approves the first one and rejects second one
 ![John views all requests](./docs/UserRequests.png)
 #### John views requests status updated to 'APPROVED' and 'REJECTED'.
-#### This another way to show all the requests.
-![All requests](./docs/Rquests.png)
-APPROVED requests appear with green background.
-REJECTED requests appear with different background and so on.
+![John views status updated](./docs/StatusUpdated.png)
 ![New excluded account](./docs/ExcluedeAccounts.png)
 ##### Excluded account listed new account 0414020690
 #### Use case 6: During batch run - system will read  EXCLUSION_ACCOUNTS table and load the list of account , and remove the respective account from the file
