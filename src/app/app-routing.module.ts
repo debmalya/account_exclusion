@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'account', component: AccountListComponent },
   { path: 'approval', component: ApprovalComponent },
   { path: 'search/account/:accountNumber', component: AccountsViewComponent },
-  { path: 'search/request/:requestStatus', component: RequestViewComponent },
+  { path: 'requests', component: RequestViewComponent },
   { path: '', component: LoginComponent }
 ];
 

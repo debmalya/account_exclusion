@@ -1,1 +1,61 @@
-<p>request-view works!</p>
+<div *ngIf="role === 'Admin'">
+    <app-admin></app-admin>
+</div>
+<div *ngIf="role === 'User'">
+    <app-user></app-user>
+</div>
+
+
+<!-- if there is exclusion request then display a message -->
+<div *ngIf="exclusionRequests?.length == 0" class="alert alert-warning col-md-12" role="alert">
+    Currently there is no requests.
+</div>
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div *ngFor="let eachExclusionRequest of exclusionRequests" class="col-md-15">
+                    <div>Request ID : {{ eachExclusionRequest.requestID  }}</div>
+                    <div>Submitted Date: {{ eachExclusionRequest.submittedDate  }}</div>
+                    <div>Submitted By :{{ eachExclusionRequest.submittedBy  }}</div>
+                    <div>Account Number:{{ eachExclusionRequest.accountNumber  }}</div>
+                    <div>Approval Date : {{ eachExclusionRequest.approvalDate }}</div>
+                    <div>Approved By :{{ eachExclusionRequest.approvedBy  }}</div>
+
+
+                    <div>Current Status:
+                        <div *ngIf="eachExclusionRequest.requestStatus === 'APPROVED'">
+                            <span class="label label-success">{{ eachExclusionRequest.requestStatus  }}</span>
+                        </div>
+                        <div *ngIf="eachExclusionRequest.requestStatus === 'REJECTED'">
+                            <span class="label label-danger">{{ eachExclusionRequest.requestStatus  }}</span>
+                        </div>
+                        <div *ngIf="eachExclusionRequest.requestStatus === 'CANCELLED'">
+                            <span class="label label-warning">{{ eachExclusionRequest.requestStatus  }}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer-pagination">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-9" style="padding-left: 30%">
+                            <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                [collectionSize]="theTotalElements" [maxSize]="5"
+                                (pageChange)="handleAllRequestsList()">
+
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

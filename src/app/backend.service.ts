@@ -24,11 +24,12 @@ export class BackendService {
 
   private validationURL = '/authenticate';
   private accountListURL = '/api/account/v0/retrieveAll';
-  private exclusionRequests = '/api/approval/v0/get/all';
+  private exclusionRequests = '/api/submittedRequest?page=';
   private addRequestURL = '/api/account/v0/exclude';
   private searchPendingRequestsURL = '/api/submittedRequest/search/findByRequestStatus?requestStatus=PENDING&page=';
   private searchAccountNumberURL = '/api/accounts/search/findByAccountNumberContaining?accountNumber=';
   private approvalRequestURL = '/api/approval/v0/all';
+  
 
 
   // accounts: Account[];
@@ -69,14 +70,16 @@ export class BackendService {
   }
 
   // to retrieve all pending requests
-  getPendingRequests(pageNo, pageSize): Observable<GetPendingRequests> {
-
-    // console.log("getPendingRequests called");
-    return this.httpClient.get<GetPendingRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions());
+  getPendingRequests(pageNo, pageSize): Observable<GetExclusionRequests> {
+    return this.httpClient.get<GetExclusionRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions());
     /*.pipe(map(response => response._embedded.requests),
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError));
     */
+  }
+
+  getAllRequests(pageNo,pageSize): Observable<GetExclusionRequests>{
+    return this.httpClient.get<GetExclusionRequests>(this.exclusionRequests+pageNo+"&size="+pageSize,this.generateHttpOptions());
   }
 
   getSearchedAccount(accountNumber,pageNo,pageSize){
@@ -149,7 +152,7 @@ export class BackendService {
 
 }
 
-interface GetPendingRequests {
+interface GetExclusionRequests {
   _embedded: {
     requests: Exclusionrequest[];
   },

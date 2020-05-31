@@ -25,9 +25,8 @@ The above one will do the following things :
 
 # Use cases
 #### Use case 1: Given Tom login to the system,  when Tom Add, Modify, Remove account number , then it will be  reflected as Pending approval in USER_REQUEST table.
-
-##### Tom logged in
 ![Login Screen](./docs/LoginScreen.png)
+##### Tom logged in
 ##### Add accounts to be excluded
 ![Add accounts](./docs/AccountSubmission.png)
 
@@ -43,3 +42,11 @@ The above one will do the following things :
 #### After taking action on pending requests it will not show any pending requests.
 ![Pending requests](./docs/NoPendingRequests.png)
 #### Use case 5: Given John login to the system, when John reject user submitted request ,  then USER_REQUEST table will be updated with rejected status.
+![Tom Submits Requests](./docs/TomSubmittedRequest.png)
+##### John logged in see the pending requests.
+![John get pending requests](./docs/JohnGotThePendingReques.png)
+#### John approves the first one and rejects second one
+![John views all requests](./docs/UserRequests.png)
+#### John views all requests status updated to 'APPROVED' and 'REJECTED'.
+
+

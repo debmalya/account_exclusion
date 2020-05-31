@@ -22,4 +22,8 @@ export class AdminComponent implements OnInit {
     this.router.navigate([""]);
   }
 
+  doSearch(value: string) {
+    console.log(`search account containing =${value}`);
+    this.router.navigateByUrl(`search/account/${value}`);
+  }
 }
