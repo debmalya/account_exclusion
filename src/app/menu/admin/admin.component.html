@@ -1,8 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="nav-item nav-link" routerLink="/requests" routerLinkActive="active-link">View all requests</a>
-        <a class="nav-item nav-link" routerLink="/batchrun" routerLinkActive="active-link">Batch run</a>
-        <!--
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" routerLink="/requests" routerLinkActive="active-link">View all requests</a>
+            <a class="nav-item nav-link" routerLink="/batchrun" routerLinkActive="active-link">Batch run</a>
+            <!--
     <form class="form-inline my-2 my-lg-0">
         <input #myInput class="form-control mr-sm-2" type="search" placeholder="Search by account number"
             aria-label="Search" (keyup.enter)="doSearch(myInput.value)">
@@ -10,8 +11,9 @@
             (click)="doSearch(myInput.value)">Search</button>
     </form>
      -->
-        <form class="form-inline" role="form" (submit)="logout()">
-            <button type="submit" class="btn btn-primary">Logout</button>
-        </form>
+            <form class="form-inline" role="form" (submit)="logout()">
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
+        </div>
     </div>
 </nav>
