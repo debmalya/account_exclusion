@@ -9,17 +9,22 @@
             <div class="row">
                 <form role="form" (submit)="submitForApproval()">
                     <div *ngFor="let eachExclusionRequest of exclusionRequests" class="col-md-15">
-                        <!-- <div class="product-box">  -->
                         <div>Submitted Date: {{ eachExclusionRequest.submittedDate  }}</div>
                         <div>Submitted By :{{ eachExclusionRequest.submittedBy  }}</div>
                         <div>Account Number:{{ eachExclusionRequest.accountNumber  }}</div>
-                        <div><button class="btn btn-success" (click)="addToApproval(eachExclusionRequest,'APPROVE')">Approve</button></div>
-                        <div><button class="btn btn-danger" (click)="addToApproval(eachExclusionRequest,'REJECT')">Reject</button></div>
-                        <!-- </div> -->
+                        <div *ngIf="role == 'Admin'">
+                            <div><button class="btn btn-success"
+                                    (click)="addToApproval(eachExclusionRequest,'APPROVE')">Approve</button></div>
+                            <div><button class="btn btn-danger"
+                                    (click)="addToApproval(eachExclusionRequest,'REJECT')">Reject</button></div>
+                        </div>
+                        <div *ngIf="role == 'User'">
+                            <div><button class="btn btn-warning"
+                                    (click)="addToApproval(eachExclusionRequest,'CANCEL')">Cancel</button></div>
+                        </div>
                     </div>
                     <p>
-                        <button type="submit" [disabled]="requestMap.size == 0"
-                            class="btn btn-outline-warning">Submit</button>
+                        <button [disabled]="requestMap.size == 0" class="btn btn-outline-warning">Submit</button>
                     </p>
                     <div *ngIf="submissionResult!=''" class="alert alert-warning col-md-12" role="alert">
                         {{submissionResult}}

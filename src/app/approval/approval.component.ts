@@ -19,6 +19,7 @@ export class ApprovalComponent implements OnInit {
   theTotalElements: number = 0;
   requestMap: Map<string, string> = new Map();
   submissionResult: string = "";
+  role :string = "";
 
 
   constructor(private backendService: BackendService) { }
@@ -27,6 +28,7 @@ export class ApprovalComponent implements OnInit {
 
     this.backendService.getPendingRequests(0, 20).subscribe(this.processResult());
     console.log("ngOnInit :" + JSON.stringify(this.exclusionRequests));
+    this.role = this.backendService.role;
   }
 
   handlePendingRequestList() {
@@ -48,6 +50,8 @@ export class ApprovalComponent implements OnInit {
     var submitAction = "A";
     if (action === "REJECT") {
       submitAction = "R";
+    }else if (action === 'CANCEL'){
+      submitAction = "C";
     }
     this.requestMap.set(exclusionrequest.requestID, submitAction);
     console.log("addToApproval request map modified" + JSON.stringify(this.requestMap));
@@ -61,8 +65,8 @@ export class ApprovalComponent implements OnInit {
     }
     console.log(`Final payload :${requests}`);
     this.backendService.approval("["+requests+"]", () => {
-      console.log("Approval request submitted");
-      this.submissionResult = "Approval request submitted";
+      console.log("request submitted");
+      this.submissionResult = "Request submitted";
       this.requestMap.clear();
     });
   }

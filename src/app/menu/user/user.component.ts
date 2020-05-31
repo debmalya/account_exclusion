@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
   }
 
     doSearch(value: string) {
-      console.log(`search account containging =${value}`);
+      console.log(`search account containing =${value}`);
       this.router.navigateByUrl(`search/account/${value}`);
     }
 

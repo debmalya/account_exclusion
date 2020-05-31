@@ -10,7 +10,6 @@ import org.deb.account.exclusion.repository.UserRequestRepository;
 import org.deb.account.exclusion.util.Constatnts;
 import org.deb.account.exclusion.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +38,12 @@ public class ApprovalController {
     @PostMapping(value="/all")
     public ResponseEntity<?> excludeAccounts(@RequestBody List<ApproveRejectRequest> requestList) {
         String[] approver = new RequestUtil().getCurrentUserName();
+        /*
         if (!approver[1].equals("Admin")){
             return new ResponseEntity<String>(String.format("Your role '%s' is not authorize to do this operation.",approver[1]),HttpStatus.UNAUTHORIZED );
         }
+
+         */
         List<String> statusMessages = new ArrayList<>();
         for (ApproveRejectRequest eachApproveRejectRequest : requestList) {
             Optional<SubmittedRequest> pendingRequest = userRequestRepository.findById(eachApproveRejectRequest.getRequestID());
@@ -61,6 +63,10 @@ public class ApprovalController {
                         // need to remove from the file also
                         submittedRequest.setRequestStatus(RequestStatus.REJECTED);
                         status = String.format("Request with id '%s' got rejected.", eachApproveRejectRequest.getRequestID());
+                    }else if (eachApproveRejectRequest.getAction()=='C'){
+                      // need to remove from the file also
+                      submittedRequest.setRequestStatus(RequestStatus.CANCELLED);
+                      status = String.format("Request with id '%s' got cancelled.", eachApproveRejectRequest.getRequestID());
                     }
                     userRequestRepository.save(submittedRequest);
                 }catch(Exception exc){

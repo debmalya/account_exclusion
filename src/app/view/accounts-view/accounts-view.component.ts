@@ -14,10 +14,15 @@ export class AccountsViewComponent implements OnInit {
   thePageSize: number = 10;
   theTotalElements: number = 0;
   excludedAccounts: Account[] = [];
+  previousAccountSearch: string = null;
+  currentAccountSearch: string = null;
 
   constructor(private backendService: BackendService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.currentAccountSearch = params['accountNumber'];
+    });
     const accountNumber: string = this.route.snapshot.paramMap.get('accountNumber');
     console.log(`ngOnInit search account containing : ${accountNumber}`);
     this.backendService.getSearchedAccount(accountNumber, 0, 20).subscribe(this.processResult());
@@ -37,8 +42,12 @@ export class AccountsViewComponent implements OnInit {
 
    handleSearchedAccountList(){
     const accountNumber: string = this.route.snapshot.paramMap.get('accountNumber');
+    if (this.previousAccountSearch != accountNumber) {
+      this.thePageNumber = 1;
+    }
     this.backendService.getSearchedAccount(accountNumber, 0, 20).subscribe(this.processResult());
     console.log("handleSearchedAccountList search account :" + JSON.stringify(this.excludedAccounts));
+    this.previousAccountSearch = accountNumber;
    }
 
    removeAccount(account){
