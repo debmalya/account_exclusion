@@ -24,19 +24,22 @@ The above one will do the following things :
 * after successful running of the `mvn sprint-boot:run`. Please open http://localhost:5000
 
 # Use cases
-#### Use case: Given Tom login to the system,  when Tom Add, Modify, Remove account number , then it will be  reflected as Pending approval in USER_REQUEST table
+#### Use case 1: Given Tom login to the system,  when Tom Add, Modify, Remove account number , then it will be  reflected as Pending approval in USER_REQUEST table.
 
 ##### Tom logged in
 ![Login Screen](./docs/LoginScreen.png)
 ##### Add accounts to be excluded
 ![Add accounts](./docs/AccountSubmission.png)
 
-#### Use case: Given Tom login to the system , when Tom  search list of account numbers , then system will display all accounts from EXCLUSION_ACCOUNTS
+#### Use case 2: Given Tom login to the system , when Tom  search list of account numbers , then system will display all accounts from EXCLUSION_ACCOUNTS
 ![Search Accounts](./docs/SearchAccount.png)
 ![Search Account Result](./docs/AccountSearchResult.png)
-
-#### Given John login to the system, when John approve user submitted request ,  then it will persist in EXCLUSION_ACCOUNTS
+#### Use case 3: Given Tom login to the system,  when Tom search Pending approval in USER_REQUEST table, then Tom can cancel any request before Admin approve or reject.
+![Cancel pending requests](./docs/CancelPendingRequest.png)
+![John logs in and did not see any pending requests](./docs/NoPendingRequests.png)
+#### Use case 4: Given John login to the system, when John approve user submitted request ,  then it will persist in EXCLUSION_ACCOUNTS
 #### John logged in and get the list of pending requests in a paginated way.
 ![Approve or reject pending requests](./docs/ApproveReject.png)
 #### After taking action on pending requests it will not show any pending requests.
 ![Pending requests](./docs/NoPendingRequests.png)
+#### Use case 5: Given John login to the system, when John reject user submitted request ,  then USER_REQUEST table will be updated with rejected status.
