@@ -54,3 +54,5 @@ The above one will do the following things :
 * Property `monthly.batch_file=batch_file.csv` is configured in applicaton.properites . Mentioned file must be present in the classpath.
 * batch run is exposed as an API. It can be called from Admin menu.
 * after batch run please check the specified file in the classpath.
+![Batch Run completed](./docs/batchRun.png)
+##### By log in with John  (Admin role) can execute batch run.

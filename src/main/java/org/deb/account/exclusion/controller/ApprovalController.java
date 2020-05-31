@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.deb.account.exclusion.entity.ExclusionAccounts;
 import org.deb.account.exclusion.entity.SubmittedRequest;
 import org.deb.account.exclusion.enums.RequestStatus;
+import org.deb.account.exclusion.model.APIResponse;
 import org.deb.account.exclusion.model.ApproveRejectRequest;
 import org.deb.account.exclusion.repository.AccountRepository;
 import org.deb.account.exclusion.repository.UserRequestRepository;
@@ -96,12 +97,14 @@ public class ApprovalController {
     return new ResponseEntity<>(userRequestRepository.findAll(), HttpStatus.OK);
   }
 
-  @PostMapping(value = "/runbatch")
+  @GetMapping(value = "/runbatch")
+  // TODO : This needs to be improved.
   public ResponseEntity<?> batchRun() {
     // Read CSV file from classpath
 //    Reader reader = null;
     log.info("1. batchRun called");
     StringBuilder status = new StringBuilder();
+    StringBuilder error = new StringBuilder();
     CSVWriter csvWriter = null;
     try (Reader reader = Files.newBufferedReader(Paths.get(
       ClassLoader.getSystemResource(fileName).toURI()))) {
@@ -126,12 +129,13 @@ public class ApprovalController {
       }
 
       for (int i = accountsToBeRemoved.size() - 1; i > -1; i--){
-        String accountNumberToBeRemoved = fileContent.get(i)[0];
+        String accountNumberToBeRemoved = fileContent.get(accountsToBeRemoved.get(i))[0];
         log.info(String.format("Accounts to be removed '%s'",accountNumberToBeRemoved));
-        String[] removedRecord = fileContent.remove(i);
-        if (removedRecord!= null && removedRecord.length >0){
-          log.info(String.format("Removed record '%s'",Arrays.toString(removedRecord)));
-          status.append(String.format("Removed record '%s'",accountNumberToBeRemoved));
+        int indexToBeRemoved = accountsToBeRemoved.get(i);
+        String[] removedRecords = fileContent.remove(indexToBeRemoved);
+        if (removedRecords!=null && removedRecords.length > 0){
+          log.info(String.format("Removed account %s",removedRecords[0]));
+          status.append(String.format("Removed account %s",removedRecords[0]));
         }
       }
 
@@ -141,8 +145,8 @@ public class ApprovalController {
       csvWriter.writeAll(fileContent);
       log.info("4. File writing completed");
     } catch (URISyntaxException | IOException | CsvException e) {
-      String errorMessage = String.format("error occurred while reading file '%s' error '%s'", fileName, e.getMessage());
-      status.append(errorMessage);
+      String errorMessage = String.format("error occurred while reading file: %s error: %s", fileName, e.getMessage());
+      error.append(errorMessage);
       log.error(errorMessage, e);
     } finally {
       if (csvWriter != null) {
@@ -156,7 +160,10 @@ public class ApprovalController {
       }
     }
 
-    return new ResponseEntity<>(status.toString(), HttpStatus.OK);
+    APIResponse apiResponse = new APIResponse();
+    apiResponse.setErrorMessage(error.toString());
+    apiResponse.setMessage(status.toString());
+    return new ResponseEntity<>(apiResponse, HttpStatus.OK);
   }
 
 }

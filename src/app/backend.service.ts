@@ -61,7 +61,7 @@ export class BackendService {
 
   batchRun(callback){
     console.log("Backend service calling batch run with http options : " + JSON.stringify(this.generateHttpOptions()));
-    this.httpClient.post<string>(this.batchRunURL,this.generateHttpOptions()).subscribe(response =>{
+    this.httpClient.get<string>(this.batchRunURL,this.generateHttpOptions()).subscribe(response =>{
       return callback && callback();
     });
   }
