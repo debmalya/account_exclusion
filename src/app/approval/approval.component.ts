@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Exclusionrequest } from '../exclusionrequest';
 import { BackendService } from '../backend.service';
-import { FormBuilder } from '@angular/forms';
+
 
 
 @Component({
@@ -21,7 +21,7 @@ export class ApprovalComponent implements OnInit {
   submissionResult: string = "";
 
 
-  constructor(private backendService: BackendService, private fb: FormBuilder) { }
+  constructor(private backendService: BackendService) { }
 
   ngOnInit(): void {
 

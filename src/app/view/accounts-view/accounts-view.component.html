@@ -1,0 +1,39 @@
+<app-user></app-user>
+<p class="h3">Title: Account search result</p>
+<!-- if there is exclusion request then display a message -->
+<div *ngIf="excludedAccounts?.length == 0" class="alert alert-warning col-md-12" role="alert">
+        There is no matching account.
+    </div>
+    <div class="main-content">
+        <div class="section-content section-content-p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <form role="form">
+                        <div *ngFor="let account of excludedAccounts" class="col-md-15">
+                            <div>Account Number:{{ account.accountNumber  }}</div>
+                            <div><button class="btn btn-danger" (click)="removeAccount(account)">Remove</button></div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+    
+    
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+                                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements" [maxSize]="5"
+                                    (pageChange)="handleSearchedAccountList()">
+    
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

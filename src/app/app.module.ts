@@ -16,6 +16,8 @@ import { FooterComponent } from './menu/footer/footer.component';
 import { MainComponent } from './menu/main/main.component';
 import { UserComponent } from './menu/user/user.component';
 import { AdminComponent } from './menu/admin/admin.component';
+import { AccountsViewComponent } from './view/accounts-view/accounts-view.component';
+import { RequestViewComponent } from './view/request-view/request-view.component';
 
 
 
@@ -33,6 +35,8 @@ import { AdminComponent } from './menu/admin/admin.component';
     MainComponent,
     UserComponent,
     AdminComponent,
+    AccountsViewComponent,
+    RequestViewComponent,
   ],
   imports: [
     BrowserModule,

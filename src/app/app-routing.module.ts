@@ -3,14 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccountListComponent } from './account-list/account-list.component';
 import { LoginComponent } from './login/login.component';
 import { ApprovalComponent } from './approval/approval.component';
+import { AccountsViewComponent } from './view/accounts-view/accounts-view.component';
+import { RequestViewComponent } from './view/request-view/request-view.component';
 
 
 
 const routes: Routes = [
   { path: 'account', component: AccountListComponent },
   { path: 'approval', component: ApprovalComponent },
-  // { path: 'login', component: LoginComponent },
-  // { path: 'logout', component: LoginComponent },
+  { path: 'search/account/:accountNumber', component: AccountsViewComponent },
+  { path: 'search/request/:requestStatus', component: RequestViewComponent },
   { path: '', component: LoginComponent }
 ];
 

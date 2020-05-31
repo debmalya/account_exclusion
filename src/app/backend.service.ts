@@ -27,6 +27,7 @@ export class BackendService {
   private exclusionRequests = '/api/approval/v0/get/all';
   private addRequestURL = '/api/account/v0/exclude';
   private searchPendingRequestsURL = '/api/submittedRequest/search/findByRequestStatus?requestStatus=PENDING&page=';
+  private searchAccountNumberURL = '/api/accounts/search/findByAccountNumberContaining?accountNumber=';
   private approvalRequestURL = '/api/approval/v0/all';
 
 
@@ -70,12 +71,17 @@ export class BackendService {
   // to retrieve all pending requests
   getPendingRequests(pageNo, pageSize): Observable<GetPendingRequests> {
 
-    console.log("getPendingRequests called");
+    // console.log("getPendingRequests called");
     return this.httpClient.get<GetPendingRequests>(this.searchPendingRequestsURL + pageNo + "&size=" + pageSize, this.generateHttpOptions());
     /*.pipe(map(response => response._embedded.requests),
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError));
     */
+  }
+
+  getSearchedAccount(accountNumber,pageNo,pageSize){
+    console.log("getSearchedAccount called");
+    return this.httpClient.get<GetAccountsRequests>(this.searchAccountNumberURL+ accountNumber+ "&page=" + pageNo + "&size=" + pageSize, this.generateHttpOptions());
   }
 
   // submit add requests
@@ -85,6 +91,7 @@ export class BackendService {
     });
   }
 
+  // send for pending request approval/reject/cancellation
   approval(requestPayload, callback) {
     this.httpClient.post(this.approvalRequestURL, requestPayload, this.generateHttpOptions()).subscribe(response => {
       return callback & callback();
@@ -145,6 +152,18 @@ export class BackendService {
 interface GetPendingRequests {
   _embedded: {
     requests: Exclusionrequest[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
+}
+
+interface GetAccountsRequests {
+  _embedded: {
+    excludedAccounts: Account[];
   },
   page: {
     size: number,

@@ -22,4 +22,9 @@ export class UserComponent implements OnInit {
     this.router.navigate([""]);
   }
 
+    doSearch(value: string) {
+      console.log(`search account containging =${value}`);
+      this.router.navigateByUrl(`search/account/${value}`);
+    }
+
 }
