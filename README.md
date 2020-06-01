@@ -46,7 +46,6 @@ The above one will do the following things :
 ##### John logged in to see the pending requests.
 ![John get pending requests](./docs/JohnGotThePendingReques.png)
 #### John approves the first one and rejects second one
-![John views all requests](./docs/UserRequests.png)
 #### John views requests status updated to 'APPROVED' and 'REJECTED'.
 ![John views status updated](./docs/StatusUpdated.png)
 ![New excluded account](./docs/ExcluedeAccounts.png)
